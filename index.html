@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/three.js"></script>
+</head>
+<body onload="init()">
+<canvas id="canvas" width="800" height="800"></canvas>
+</body>
+<script>
+  function init() {
+    /**渲染器*/
+    var render = new THREE.WebGLRenderer({
+      canvas: document.getElementById('canvas')
+    })
+    /**场景*/
+    var sence = new THREE.Scene();
+    /**相机*/
+    var camera = new THREE.PerspectiveCamera(45, 4 / 3, 1, 1000);//定义一个透视相机
+    camera.position.set(0, 0, 5);// 设定相机的位置
+    sence.add(camera);
+    /**创建物体*/
+    var geometry = new THREE.CubeGeometry(1, 2, 3);//表示调用一个几何体
+    var meterial = new THREE.MeshBasicMaterial({//表示的是物体的材质
+      color: 0xff0000
+    });
+    var cube = new THREE.Mesh(geometry, meterial);
+    sence.add(cube);//将物体添加到场景
+    var Textures = new THREE.Texture();
+    /**球體*/
+    var sphere = new THREE.Mesh(
+      new THREE.SphereGeometry(2, 8, 6,Math.PI / 2, Math.PI / 3),//半径，经度，纬度
+      new THREE.MeshBasicMaterial({
+        color: 0xffff00,
+        wireframe: true
+      })
+    );
+    sence.add(sphere);
+    /**渲染*/
+    render.render(sence, camera)
+  }
+</script>
+</html>
